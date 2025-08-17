@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Princess Pac-Girl '95 ✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Butterfly+Kids&family=Kalam:wght@700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes sparkle {
+            0% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+            100% { opacity: 0; transform: scale(0) rotate(360deg); }
+        }
+
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes glitter {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        body {
+            background: linear-gradient(45deg, #FFB6C1, #DDA0DD, #B19CD9, #87CEEB, #FFB6C1);
+            background-size: 400% 400%;
+            animation: rainbow 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Kalam', cursive;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 192, 203, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 182, 193, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .sparkles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 3s infinite;
+        }
+
+        .arcade-machine {
+            background: linear-gradient(135deg, #FF69B4, #FFB6C1, #FFC0CB);
+            border: 12px solid #FF1493;
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: 
+                0 0 50px rgba(255, 20, 147, 0.6),
+                0 0 100px rgba(255, 192, 203, 0.4),
+                inset 0 0 30px rgba(255, 255, 255, 0.3),
+                0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            transform: perspective(1000px) rotateX(2deg);
+        }
+
+        .arcade-machine::before, .arcade-machine::after {
+            content: '✨';
+            position: absolute;
+            font-size: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .arcade-machine::before {
+            top: -20px;
+            left: -20px;
+            animation-delay: 0s;
+        }
+
+        .arcade-machine::after {
+            bottom: -20px;
+            right: -20px;
+            animation-delay: 1.5s;
+        }
+
+        .screen-frame {
+            background: linear-gradient(135deg, #E6E6FA, #FFF0F5);
+            border: 6px solid #DDA0DD;
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 
+                inset 0 0 20px rgba(221, 160, 221, 0.5),
+                0 0 20px rgba(255, 182, 193, 0.5);
+        }
+
+        .game-title {
+            text-align: center;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Butterfly Kids', cursive;
+            font-size: 52px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #FF1493, #FF69B4, #FFB6C1, #FF1493);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbow 3s linear infinite;
+            text-shadow: 
+                2px 2px 4px rgba(255, 192, 203, 0.5),
+                0 0 30px rgba(255, 20, 147, 0.3);
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            color: #FF69B4;
+            font-size: 18px;
+            margin-top: 5px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            animation: glitter 2s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 3px solid #FFB6C1;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(255, 182, 193, 0.5);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #D8008F;
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .stat-icon {
+            font-size: 24px;
+        }
+
+        #gameCanvas {
+            display: block;
+            background: #0a0818;
+            border: 4px solid #FF69B4;
+            border-radius: 10px;
+            box-shadow: 
+                0 0 30px rgba(255, 105, 180, 0.5),
+                inset 0 0 20px rgba(138, 43, 226, 0.2);
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
+
+        .controls {
+            margin-top: 15px;
+            text-align: center;
+            padding: 12px;
+            background: linear-gradient(135deg, rgba(255, 192, 203, 0.8), rgba(221, 160, 221, 0.8));
+            border: 3px solid #FF69B4;
+            border-radius: 15px;
+            color: #8B008B;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+        }
+
+        .key {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFB6C1, #FFC0CB);
+            color: #8B008B;
+            padding: 5px 12px;
+            margin: 0 3px;
+            border: 2px solid #FF69B4;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+        }
+
+        .game-modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 240, 245, 0.95));
+            padding: 30px;
+            border: 4px solid #FF69B4;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 
+                0 0 50px rgba(255, 105, 180, 0.6),
+                0 10px 30px rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 100;
+        }
+
+        .game-modal h2 {
+            font-family: 'Butterfly Kids', cursive;
+            font-size: 42px;
+            font-weight: bold;
+            color: #FF1493;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(255, 192, 203, 0.5);
+        }
+
+        .game-modal p {
+            color: #D8008F;
+            font-size: 20px;
+            margin: 10px 0;
+        }
+
+        .play-button {
+            margin-top: 20px;
+            padding: 12px 30px;
+            font-size: 20px;
+            font-family: 'Kalam', cursive;
+            font-weight: bold;
+            background: linear-gradient(135deg, #FF69B4, #FF1493);
+            color: white;
+            border: 3px solid #FFB6C1;
+            border-radius: 25px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4);
+        }
+
+        .play-button:hover {
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 
+                0 0 30px rgba(255, 105, 180, 0.8),
+                0 6px 20px rgba(255, 20, 147, 0.5);
+        }
+
+        .start-modal {
+            display: block;
+        }
+
+        .decorations {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255, 105, 180, 0.6);
+            font-size: 20px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .butterfly {
+            position: absolute;
+            font-size: 24px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .power-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            font-family: 'Butterfly Kids', cursive;
+            font-weight: bold;
+            color: #FF1493;
+            text-shadow: 
+                0 0 20px rgba(255, 20, 147, 0.8),
+                2px 2px 4px rgba(255, 255, 255, 0.5);
+            animation: pulse 0.5s ease-in-out;
+            pointer-events: none;
+            display: none;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body>
+    <div class="sparkles" id="sparkles"></div>
+    <div class="decorations">
+        <span class="heart" style="top: 10%; left: 5%;">💖</span>
+        <span class="heart" style="top: 80%; left: 90%;">💕</span>
+        <span class="butterfly" style="top: 20%; right: 10%;">🦋</span>
+        <span class="butterfly" style="bottom: 15%; left: 8%;">🦋</span>
+    </div>
+
+    <div class="arcade-machine">
+        <div class="screen-frame">
+            <div class="game-title">
+                <h1>Princess Pac-Girl '95</h1>
+                <div class="subtitle">✨ Girl Power Edition ✨</div>
+            </div>
+
+            <div class="game-stats">
+                <div class="stat-item">
+                    <span class="stat-icon">💎</span>
+                    <span>SCORE: <span id="score">0</span></span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">💕</span>
+                    <span>LIVES: <span id="lives">3</span></span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">⭐</span>
+                    <span>LEVEL: <span id="level">1</span></span>
+                </div>
+            </div>
+
+            <div style="position: relative;">
+                <canvas id="gameCanvas" width="608" height="608"></canvas>
+                <div class="power-text" id="powerText">GIRL POWER!</div>
+
+                <div class="game-modal start-modal" id="startModal">
+                    <h2>Princess Pac-Girl</h2>
+                    <p style="color: #FF69B4;">💖 Collect all the hearts and diamonds! 💖</p>
+                    <p>Avoid the cute ghosts or use magic wands to transform them!</p>
+                    <button class="play-button" onclick="startGame()">Let's Play! 💕</button>
+                </div>
+
+                <div class="game-modal" id="gameOverModal">
+                    <h2 id="gameOverTitle">Game Over</h2>
+                    <p id="finalScore"></p>
+                    <p style="color: #FF69B4;" id="gameOverMessage"></p>
+                    <button class="play-button" onclick="restartGame()">Play Again! 💖</button>
+                </div>
+            </div>
+
+            <div class="controls">
+                <span class="key">↑</span><span class="key">↓</span><span class="key">←</span><span class="key">→</span> Move Princess
+                &nbsp;&nbsp;
+                <span class="key">P</span> Pause
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Generate sparkles
+        function createSparkles() {
+            const sparklesContainer = document.getElementById('sparkles');
+            for (let i = 0; i < 30; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                sparkle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                sparklesContainer.appendChild(sparkle);
+            }
+        }
+        createSparkles();
+
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = false;
+
+        // Game variables
+        let score = 0;
+        let lives = 3;
+        let level = 1;
+        let gameRunning = false;
+        let gamePaused = false;
+        let animationId;
+
+        // Grid settings
+        const CELL_SIZE = 32;
+        const ROWS = 19;
+        const COLS = 19;
+
+        // Player (Princess Pac-Girl)
+        const player = {
+            x: 9,
+            y: 15,
+            direction: null,
+            nextDirection: null,
+            animationFrame: 0,
+            mouthOpen: true,
+            speed: 4,
+            moveCounter: 0,
+            sparkles: [],
+            isEating: false,
+            eatTimer: 0
+        };
+
+        // Ghosts with proper AI
+        const ghosts = [
+            { x: 9, y: 9, color: '#FFB6C1', name: 'Pinky', direction: 'up', targetMode: 'chase', hasEyelashes: true, hasBow: true, 
+              scatterTarget: {x: 2, y: 0}, moveCounter: 0, prevDirection: null, speed: 12 },
+            { x: 8, y: 9, color: '#DDA0DD', name: 'Violet', direction: 'down', targetMode: 'scatter', hasEyelashes: true,
+              scatterTarget: {x: COLS-3, y: 0}, moveCounter: 0, prevDirection: null, speed: 12 },
+            { x: 10, y: 9, color: '#98FB98', name: 'Minty', direction: 'left', targetMode: 'chase', hasEyelashes: true,
+              scatterTarget: {x: COLS-1, y: ROWS-1}, moveCounter: 0, prevDirection: null, speed: 12 },
+            { x: 9, y: 10, color: '#FFDAB9', name: 'Peachy', direction: 'right', targetMode: 'scatter', hasEyelashes: true, hasBow: true,
+              scatterTarget: {x: 0, y: ROWS-1}, moveCounter: 0, prevDirection: null, speed: 12 }
+        ];
+        
+        // Game mode timers
+        let modeTimer = 0;
+        let currentMode = 'scatter'; // scatter, chase, or frightened
+
+        // Power-up
+        let powerUpActive = false;
+        let powerUpTimer = 0;
+
+        // Maze layout (1 = wall, 0 = dot, 2 = power pellet, 3 = empty)
+        const maze = [
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1],
+            [1,2,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,2,1],
+            [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+            [1,0,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,0,1],
+            [1,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1],
+            [1,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1],
+            [1,1,1,1,0,1,0,0,0,0,0,0,0,1,0,1,1,1,1],
+            [1,1,1,1,0,1,0,1,3,3,3,1,0,1,0,1,1,1,1],
+            [1,0,0,0,0,0,0,1,3,3,3,1,0,0,0,0,0,0,1],
+            [1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1],
+            [1,1,1,1,0,1,0,0,0,0,0,0,0,1,0,1,1,1,1],
+            [1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1],
+            [1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1],
+            [1,0,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0,1],
+            [1,2,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,2,1],
+            [1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,1],
+            [1,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+        ];
+
+        // Create a copy of maze for dots
+        let dots = maze.map(row => [...row]);
+        let totalDots = 0;
+        let dotsCollected = 0;
+
+        // Count total dots
+        for (let row = 0; row < ROWS; row++) {
+            for (let col = 0; col < COLS; col++) {
+                if (dots[row][col] === 0 || dots[row][col] === 2) {
+                    totalDots++;
+                }
+            }
+        }
+
+        // Particle effects
+        const particles = [];
+
+        function createSparkle(x, y, color) {
+            particles.push({
+                x: x,
+                y: y,
+                vx: (Math.random() - 0.5) * 2,
+                vy: (Math.random() - 0.5) * 2,
+                life: 1,
+                color: color,
+                size: Math.random() * 3 + 1
+            });
+        }
+
+        // Input handling
+        const keys = {};
+        document.addEventListener('keydown', (e) => {
+            keys[e.key] = true;
+            
+            if (e.key === 'ArrowUp') player.nextDirection = 'up';
+            if (e.key === 'ArrowDown') player.nextDirection = 'down';
+            if (e.key === 'ArrowLeft') player.nextDirection = 'left';
+            if (e.key === 'ArrowRight') player.nextDirection = 'right';
+            
+            if (e.key === 'p' || e.key === 'P') {
+                togglePause();
+            }
+        });
+
+        document.addEventListener('keyup', (e) => {
+            keys[e.key] = false;
+        });
+
+        function canMove(x, y, direction) {
+            let newX = x;
+            let newY = y;
+            
+            switch(direction) {
+                case 'up': newY--; break;
+                case 'down': newY++; break;
+                case 'left': newX--; break;
+                case 'right': newX++; break;
+            }
+            
+            // Handle tunnel
+            if (newX < 0) newX = COLS - 1;
+            if (newX >= COLS) newX = 0;
+            
+            if (newY < 0 || newY >= ROWS) return false;
+            return maze[newY][newX] !== 1;
+        }
+
+        function movePlayer() {
+            player.moveCounter++;
+            if (player.moveCounter < player.speed) return;
+            player.moveCounter = 0;
+
+            // Try to change direction
+            if (player.nextDirection && canMove(player.x, player.y, player.nextDirection)) {
+                player.direction = player.nextDirection;
+                player.nextDirection = null;
+            }
+            
+            // Move in current direction
+            if (player.direction && canMove(player.x, player.y, player.direction)) {
+                switch(player.direction) {
+                    case 'up': player.y--; break;
+                    case 'down': player.y++; break;
+                    case 'left': player.x--; break;
+                    case 'right': player.x++; break;
+                }
+                
+                // Handle tunnel
+                if (player.x < 0) player.x = COLS - 1;
+                if (player.x >= COLS) player.x = 0;
+                
+                // Animate mouth
+                player.mouthOpen = !player.mouthOpen;
+                
+                // Create sparkle trail
+                if (Math.random() < 0.3) {
+                    createSparkle(
+                        player.x * CELL_SIZE + CELL_SIZE/2,
+                        player.y * CELL_SIZE + CELL_SIZE/2,
+                        '#FFD700'
+                    );
+                }
+            }
+            
+            // Collect dots
+            if (dots[player.y][player.x] === 0) {
+                dots[player.y][player.x] = 3;
+                score += 10;
+                dotsCollected++;
+                updateScore();
+                playSound('collect');
+                
+                // Trigger eating animation
+                player.isEating = true;
+                player.eatTimer = 10;
+                
+                // Create enhanced collection effect
+                for (let i = 0; i < 5; i++) {
+                    createSparkle(
+                        player.x * CELL_SIZE + CELL_SIZE/2,
+                        player.y * CELL_SIZE + CELL_SIZE/2,
+                        i % 2 === 0 ? '#FF69B4' : '#FFD700'
+                    );
+                }
+            }
+            
+            // Collect power pellet
+            if (dots[player.y][player.x] === 2) {
+                dots[player.y][player.x] = 3;
+                score += 50;
+                dotsCollected++;
+                updateScore();
+                activatePowerUp();
+            }
+            
+            // Check level completion
+            if (dotsCollected >= totalDots) {
+                nextLevel();
+            }
+        }
+
+        function getOppositeDirection(dir) {
+            switch(dir) {
+                case 'up': return 'down';
+                case 'down': return 'up';
+                case 'left': return 'right';
+                case 'right': return 'left';
+                default: return null;
+            }
+        }
+        
+        function getGhostTarget(ghost, index) {
+            if (powerUpActive) {
+                // Run away when frightened
+                return { x: Math.floor(Math.random() * COLS), y: Math.floor(Math.random() * ROWS) };
+            }
+            
+            if (currentMode === 'scatter') {
+                return ghost.scatterTarget;
+            }
+            
+            // Chase mode - each ghost has unique behavior
+            switch(index) {
+                case 0: // Pinky - targets 4 tiles ahead of Pac-Man
+                    let targetX = player.x;
+                    let targetY = player.y;
+                    switch(player.direction) {
+                        case 'up': targetY -= 4; break;
+                        case 'down': targetY += 4; break;
+                        case 'left': targetX -= 4; break;
+                        case 'right': targetX += 4; break;
+                    }
+                    return { x: targetX, y: targetY };
+                    
+                case 1: // Violet (Inky) - complex targeting
+                    let pivotX = player.x;
+                    let pivotY = player.y;
+                    switch(player.direction) {
+                        case 'up': pivotY -= 2; break;
+                        case 'down': pivotY += 2; break;
+                        case 'left': pivotX -= 2; break;
+                        case 'right': pivotX += 2; break;
+                    }
+                    // Double the vector from Pinky to pivot
+                    const vectorX = pivotX - ghosts[0].x;
+                    const vectorY = pivotY - ghosts[0].y;
+                    return { x: pivotX + vectorX, y: pivotY + vectorY };
+                    
+                case 2: // Minty (Blinky) - direct chase
+                    return { x: player.x, y: player.y };
+                    
+                case 3: // Peachy (Clyde) - switches between chase and scatter
+                    const dist = Math.abs(ghost.x - player.x) + Math.abs(ghost.y - player.y);
+                    if (dist > 8) {
+                        return { x: player.x, y: player.y };
+                    } else {
+                        return ghost.scatterTarget;
+                    }
+                    
+                default:
+                    return { x: player.x, y: player.y };
+            }
+        }
+        
+        function moveGhosts() {
+            // Update mode timer
+            modeTimer++;
+            if (!powerUpActive) {
+                // Switch between scatter and chase modes
+                if (currentMode === 'scatter' && modeTimer > 420) { // 7 seconds
+                    currentMode = 'chase';
+                    modeTimer = 0;
+                } else if (currentMode === 'chase' && modeTimer > 1200) { // 20 seconds
+                    currentMode = 'scatter';
+                    modeTimer = 0;
+                }
+            }
+            
+            ghosts.forEach((ghost, index) => {
+                ghost.moveCounter++;
+                if (ghost.moveCounter < ghost.speed) return;
+                ghost.moveCounter = 0;
+                
+                const target = getGhostTarget(ghost, index);
+                const directions = ['up', 'down', 'left', 'right'];
+                
+                // Filter out opposite of previous direction (ghosts can't reverse)
+                const validDirections = directions.filter(dir => {
+                    if (!powerUpActive && ghost.prevDirection && dir === getOppositeDirection(ghost.prevDirection)) {
+                        return false;
+                    }
+                    return canMove(ghost.x, ghost.y, dir);
+                });
+                
+                if (validDirections.length > 0) {
+                    // Choose direction that gets closest to target
+                    let bestDir = validDirections[0];
+                    let minDist = 999999;
+                    
+                    validDirections.forEach(dir => {
+                        let testX = ghost.x;
+                        let testY = ghost.y;
+                        switch(dir) {
+                            case 'up': testY--; break;
+                            case 'down': testY++; break;
+                            case 'left': testX--; break;
+                            case 'right': testX++; break;
+                        }
+                        
+                        // Handle tunnel wrapping in distance calculation
+                        let distX = Math.min(
+                            Math.abs(testX - target.x),
+                            Math.abs(testX - target.x + COLS),
+                            Math.abs(testX - target.x - COLS)
+                        );
+                        let distY = Math.abs(testY - target.y);
+                        const dist = distX + distY;
+                        
+                        if (dist < minDist) {
+                            minDist = dist;
+                            bestDir = dir;
+                        }
+                    });
+                    
+                    ghost.prevDirection = ghost.direction;
+                    ghost.direction = bestDir;
+                    
+                    // Move ghost
+                    switch(ghost.direction) {
+                        case 'up': ghost.y--; break;
+                        case 'down': ghost.y++; break;
+                        case 'left': ghost.x--; break;
+                        case 'right': ghost.x++; break;
+                    }
+                    
+                    // Handle tunnel
+                    if (ghost.x < 0) ghost.x = COLS - 1;
+                    if (ghost.x >= COLS) ghost.x = 0;
+                }
+            });
+        }
+
+        function checkCollisions() {
+            ghosts.forEach((ghost, index) => {
+                if (ghost.x === player.x && ghost.y === player.y) {
+                    if (powerUpActive) {
+                        // Eat ghost
+                        score += 200;
+                        updateScore();
+                        ghost.x = 9;
+                        ghost.y = 9;
+                        playSound('eatGhost');
+                        
+                        // Celebration effect
+                        for (let i = 0; i < 10; i++) {
+                            createSparkle(
+                                player.x * CELL_SIZE + CELL_SIZE/2,
+                                player.y * CELL_SIZE + CELL_SIZE/2,
+                                ghost.color
+                            );
+                        }
+                    } else {
+                        // Lose life
+                        lives--;
+                        updateLives();
+                        playSound('loseLife');
+                        
+                        if (lives <= 0) {
+                            gameOver();
+                        } else {
+                            resetPositions();
+                        }
+                    }
+                }
+            });
+        }
+
+        function resetPositions() {
+            player.x = 9;
+            player.y = 15;
+            player.direction = null;
+            player.nextDirection = null;
+            
+            ghosts[0].x = 9; ghosts[0].y = 9; ghosts[0].direction = 'up'; ghosts[0].prevDirection = null;
+            ghosts[1].x = 8; ghosts[1].y = 9; ghosts[1].direction = 'down'; ghosts[1].prevDirection = null;
+            ghosts[2].x = 10; ghosts[2].y = 9; ghosts[2].direction = 'left'; ghosts[2].prevDirection = null;
+            ghosts[3].x = 9; ghosts[3].y = 10; ghosts[3].direction = 'right'; ghosts[3].prevDirection = null;
+        }
+
+        function activatePowerUp() {
+            powerUpActive = true;
+            powerUpTimer = 300; // 5 seconds at 60fps
+            currentMode = 'frightened';
+            modeTimer = 0;
+            // Reverse ghost directions
+            ghosts.forEach(ghost => {
+                ghost.prevDirection = getOppositeDirection(ghost.direction);
+                ghost.direction = ghost.prevDirection;
+            });
+            playSound('powerUp');
+            
+            // Show power text
+            const powerText = document.getElementById('powerText');
+            powerText.style.display = 'block';
+            setTimeout(() => {
+                powerText.style.display = 'none';
+            }, 1000);
+        }
+
+        function updatePowerUp() {
+            if (powerUpActive) {
+                powerUpTimer--;
+                if (powerUpTimer <= 0) {
+                    powerUpActive = false;
+                    currentMode = 'chase';
+                    modeTimer = 0;
+                }
+            }
+        }
+
+        function drawMaze() {
+            for (let row = 0; row < ROWS; row++) {
+                for (let col = 0; col < COLS; col++) {
+                    const x = col * CELL_SIZE;
+                    const y = row * CELL_SIZE;
+                    
+                    if (maze[row][col] === 1) {
+                        // Draw walls with gradient
+                        const gradient = ctx.createLinearGradient(x, y, x + CELL_SIZE, y + CELL_SIZE);
+                        gradient.addColorStop(0, '#8B008B');
+                        gradient.addColorStop(0.5, '#9370DB');
+                        gradient.addColorStop(1, '#8B008B');
+                        ctx.fillStyle = gradient;
+                        ctx.fillRect(x, y, CELL_SIZE, CELL_SIZE);
+                        
+                        // Add wall highlights
+                        ctx.strokeStyle = '#DDA0DD';
+                        ctx.lineWidth = 1;
+                        ctx.strokeRect(x, y, CELL_SIZE, CELL_SIZE);
+                    }
+                }
+            }
+        }
+
+        function drawDots() {
+            for (let row = 0; row < ROWS; row++) {
+                for (let col = 0; col < COLS; col++) {
+                    const x = col * CELL_SIZE + CELL_SIZE/2;
+                    const y = row * CELL_SIZE + CELL_SIZE/2;
+                    
+                    if (dots[row][col] === 0) {
+                        // Draw heart-shaped dots with shaky movement
+                        const shakeX = Math.sin(Date.now() * 0.003 + row * 0.5) * 2;
+                        const shakeY = Math.cos(Date.now() * 0.004 + col * 0.5) * 1.5;
+                        ctx.fillStyle = '#FFB6C1';
+                        ctx.font = '12px serif';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText('💖', x + shakeX, y + shakeY);
+                    } else if (dots[row][col] === 2) {
+                        // Draw magic wand power pellets
+                        ctx.save();
+                        ctx.translate(x, y);
+                        ctx.rotate(Math.sin(Date.now() * 0.002) * 0.2);
+                        ctx.font = '20px serif';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText('✨', 0, 0);
+                        ctx.restore();
+                    }
+                }
+            }
+        }
+
+        function drawPlayer() {
+            const x = player.x * CELL_SIZE + CELL_SIZE/2;
+            const y = player.y * CELL_SIZE + CELL_SIZE/2;
+            
+            ctx.save();
+            ctx.translate(x, y);
+            
+            // Rotate based on direction
+            let rotation = 0;
+            switch(player.direction) {
+                case 'right': rotation = 0; break;
+                case 'down': rotation = Math.PI/2; break;
+                case 'left': rotation = Math.PI; break;
+                case 'up': rotation = -Math.PI/2; break;
+            }
+            ctx.rotate(rotation);
+            
+            // Update eating animation
+            if (player.eatTimer > 0) {
+                player.eatTimer--;
+                if (player.eatTimer === 0) {
+                    player.isEating = false;
+                }
+            }
+            
+            // Scale effect when eating
+            const scale = player.isEating ? 1.15 : 1;
+            ctx.scale(scale, scale);
+            
+            // Draw Princess Pac-Girl (back to pink!)
+            ctx.fillStyle = '#FF69B4';
+            ctx.beginPath();
+            
+            if (player.mouthOpen) {
+                // Wider mouth when eating
+                const mouthStart = player.isEating ? 0.3 : 0.2;
+                const mouthEnd = player.isEating ? 1.7 : 1.8;
+                ctx.arc(0, 0, CELL_SIZE/2 - 2, mouthStart * Math.PI, mouthEnd * Math.PI);
+            } else {
+                ctx.arc(0, 0, CELL_SIZE/2 - 2, 0, 2 * Math.PI);
+            }
+            ctx.lineTo(0, 0);
+            ctx.fill();
+            
+            // Draw red ribbon bow (bounces when eating)
+            const bowBounce = player.isEating ? Math.sin(Date.now() * 0.01) * 2 : 0;
+            ctx.fillStyle = '#FF0000';
+            ctx.fillRect(-8, -CELL_SIZE/2 - 2 + bowBounce, 6, 4);
+            ctx.fillRect(2, -CELL_SIZE/2 - 2 + bowBounce, 6, 4);
+            ctx.fillStyle = '#8B0000';
+            ctx.fillRect(-2, -CELL_SIZE/2 - 2 + bowBounce, 4, 4);
+            
+            // Draw eye (sparkles when eating)
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            const eyeSize = player.isEating ? 4 : 3;
+            ctx.arc(-3, -3, eyeSize, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.fillStyle = 'black';
+            ctx.beginPath();
+            ctx.arc(-3, -3, 1.5, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Add sparkle in eye when eating
+            if (player.isEating) {
+                ctx.fillStyle = 'white';
+                ctx.beginPath();
+                ctx.arc(-4, -4, 0.8, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+            
+            // Draw lipstick and cheeks
+            if (player.mouthOpen) {
+                ctx.strokeStyle = '#FF0000';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(0, 0, CELL_SIZE/2 - 4, 0.3 * Math.PI, 0.7 * Math.PI);
+                ctx.stroke();
+            }
+            
+            // Draw cute cheeks when eating
+            if (player.isEating) {
+                ctx.fillStyle = 'rgba(255, 182, 193, 0.6)';
+                ctx.beginPath();
+                ctx.arc(-8, 2, 3, 0, 2 * Math.PI);
+                ctx.arc(8, 2, 3, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+            
+            ctx.restore();
+        }
+
+        function drawGhost(ghost) {
+            const x = ghost.x * CELL_SIZE + CELL_SIZE/2;
+            const y = ghost.y * CELL_SIZE + CELL_SIZE/2;
+            
+            ctx.save();
+            ctx.translate(x, y);
+            
+            if (powerUpActive) {
+                // Draw as cute bunny when powered up
+                ctx.fillStyle = '#FFB6C1';
+                
+                // Body
+                ctx.beginPath();
+                ctx.ellipse(0, 2, CELL_SIZE/3, CELL_SIZE/2.5, 0, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // Ears
+                ctx.beginPath();
+                ctx.ellipse(-5, -8, 3, 8, -0.2, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.ellipse(5, -8, 3, 8, 0.2, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // Face
+                ctx.fillStyle = 'black';
+                ctx.beginPath();
+                ctx.arc(-4, 0, 1.5, 0, 2 * Math.PI);
+                ctx.arc(4, 0, 1.5, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // Nose
+                ctx.fillStyle = '#FF69B4';
+                ctx.beginPath();
+                ctx.arc(0, 3, 2, 0, 2 * Math.PI);
+                ctx.fill();
+            } else {
+                // Regular ghost
+                ctx.fillStyle = ghost.color;
+                
+                // Body
+                ctx.beginPath();
+                ctx.arc(0, -2, CELL_SIZE/2 - 2, Math.PI, 0, true);
+                ctx.lineTo(CELL_SIZE/2 - 2, CELL_SIZE/2 - 4);
+                
+                // Wavy bottom
+                const waveOffset = Math.sin(Date.now() * 0.005) * 2;
+                for (let i = 3; i >= 0; i--) {
+                    const waveX = (i / 3) * (CELL_SIZE - 4) - CELL_SIZE/2 + 2;
+                    const waveY = CELL_SIZE/2 - 4 + (i % 2 ? waveOffset : -waveOffset);
+                    ctx.lineTo(waveX, waveY);
+                }
+                
+                ctx.closePath();
+                ctx.fill();
+                
+                // Eyes
+                ctx.fillStyle = 'white';
+                ctx.beginPath();
+                ctx.arc(-5, -2, 4, 0, 2 * Math.PI);
+                ctx.arc(5, -2, 4, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // Pupils
+                ctx.fillStyle = 'black';
+                ctx.beginPath();
+                ctx.arc(-5 + (player.x - ghost.x) * 0.3, -2 + (player.y - ghost.y) * 0.3, 2, 0, 2 * Math.PI);
+                ctx.arc(5 + (player.x - ghost.x) * 0.3, -2 + (player.y - ghost.y) * 0.3, 2, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                // Eyelashes
+                if (ghost.hasEyelashes) {
+                    ctx.strokeStyle = 'black';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(-8, -6);
+                    ctx.lineTo(-7, -8);
+                    ctx.moveTo(-5, -6);
+                    ctx.lineTo(-5, -8);
+                    ctx.moveTo(-2, -6);
+                    ctx.lineTo(-3, -8);
+                    
+                    ctx.moveTo(2, -6);
+                    ctx.lineTo(3, -8);
+                    ctx.moveTo(5, -6);
+                    ctx.lineTo(5, -8);
+                    ctx.moveTo(8, -6);
+                    ctx.lineTo(7, -8);
+                    ctx.stroke();
+                }
+                
+                // Bow
+                if (ghost.hasBow) {
+                    ctx.fillStyle = '#FF1493';
+                    ctx.fillRect(-6, -CELL_SIZE/2 + 2, 5, 3);
+                    ctx.fillRect(1, -CELL_SIZE/2 + 2, 5, 3);
+                    ctx.fillStyle = '#FFB6C1';
+                    ctx.fillRect(-2, -CELL_SIZE/2 + 2, 4, 3);
+                }
+            }
+            
+            ctx.restore();
+        }
+
+        function drawParticles() {
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life -= 0.02;
+                p.vy += 0.1;
+                
+                if (p.life <= 0) {
+                    particles.splice(i, 1);
+                    continue;
+                }
+                
+                ctx.save();
+                ctx.globalAlpha = p.life;
+                ctx.fillStyle = p.color;
+                ctx.shadowBlur = 5;
+                ctx.shadowColor = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function updateScore() {
+            document.getElementById('score').textContent = score;
+        }
+
+        function updateLives() {
+            const livesDisplay = document.getElementById('lives');
+            livesDisplay.textContent = '';
+            for (let i = 0; i < lives; i++) {
+                livesDisplay.textContent += '💕';
+            }
+        }
+
+        function updateLevel() {
+            document.getElementById('level').textContent = level;
+        }
+
+        function nextLevel() {
+            level++;
+            updateLevel();
+            dotsCollected = 0;
+            
+            // Reset dots
+            for (let row = 0; row < ROWS; row++) {
+                for (let col = 0; col < COLS; col++) {
+                    if (maze[row][col] === 0 || maze[row][col] === 2) {
+                        dots[row][col] = maze[row][col];
+                    }
+                }
+            }
+            
+            resetPositions();
+            
+            // Show level complete message
+            const powerText = document.getElementById('powerText');
+            powerText.textContent = `Level ${level} - You Go Girl!`;
+            powerText.style.display = 'block';
+            setTimeout(() => {
+                powerText.style.display = 'none';
+                powerText.textContent = 'GIRL POWER!';
+            }, 2000);
+        }
+
+        function playSound(type) {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            switch(type) {
+                case 'collect':
+                    oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+                    oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.05); // E5
+                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.1);
+                    break;
+                case 'powerUp':
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(880, audioContext.currentTime + 0.3);
+                    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.3);
+                    break;
+                case 'eatGhost':
+                    oscillator.frequency.setValueAtTime(784, audioContext.currentTime); // G5
+                    oscillator.frequency.setValueAtTime(988, audioContext.currentTime + 0.1); // B5
+                    oscillator.frequency.setValueAtTime(1047, audioContext.currentTime + 0.2); // C6
+                    gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.3);
+                    break;
+                case 'loseLife':
+                    oscillator.type = 'sawtooth';
+                    oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(110, audioContext.currentTime + 0.5);
+                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.5);
+                    break;
+            }
+        }
+
+        function gameLoop() {
+            if (!gameRunning || gamePaused) return;
+            
+            // Clear canvas
+            ctx.fillStyle = '#0a0818';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw everything
+            drawMaze();
+            drawDots();
+            drawParticles();
+            
+            // Update and draw game objects
+            movePlayer();
+            moveGhosts();
+            checkCollisions();
+            updatePowerUp();
+            
+            drawPlayer();
+            ghosts.forEach(drawGhost);
+            
+            animationId = requestAnimationFrame(gameLoop);
+        }
+
+        function startGame() {
+            document.getElementById('startModal').style.display = 'none';
+            score = 0;
+            lives = 3;
+            level = 1;
+            dotsCollected = 0;
+            updateScore();
+            updateLives();
+            updateLevel();
+            
+            // Reset dots
+            for (let row = 0; row < ROWS; row++) {
+                for (let col = 0; col < COLS; col++) {
+                    dots[row][col] = maze[row][col];
+                }
+            }
+            
+            resetPositions();
+            gameRunning = true;
+            gameLoop();
+        }
+
+        function restartGame() {
+            document.getElementById('gameOverModal').style.display = 'none';
+            particles.length = 0;
+            powerUpActive = false;
+            startGame();
+        }
+
+        function gameOver() {
+            gameRunning = false;
+            cancelAnimationFrame(animationId);
+            
+            const modal = document.getElementById('gameOverModal');
+            const title = document.getElementById('gameOverTitle');
+            const finalScore = document.getElementById('finalScore');
+            const message = document.getElementById('gameOverMessage');
+            
+            title.textContent = score > 1000 ? '✨ Amazing! ✨' : 'Game Over';
+            finalScore.textContent = `Final Score: ${score} 💎`;
+            
+            const messages = [
+                'You did great, princess! 👑',
+                'Girl power forever! 💪💖',
+                'Keep sparkling! ✨',
+                'You rock, girl! 🌟'
+            ];
+            message.textContent = messages[Math.floor(Math.random() * messages.length)];
+            
+            modal.style.display = 'block';
+        }
+
+        function togglePause() {
+            if (!gameRunning) return;
+            gamePaused = !gamePaused;
+            if (!gamePaused) {
+                gameLoop();
+            }
+        }
+
+        // Initial draw
+        ctx.fillStyle = '#0a0818';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        drawMaze();
+    </script>
+</body>
+</html>
