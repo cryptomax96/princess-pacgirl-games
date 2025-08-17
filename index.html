@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>90s Arcade Games Collection</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Butterfly+Kids&family=VT323&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes sparkle {
+            0% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+            100% { opacity: 0; transform: scale(0) rotate(360deg); }
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(45deg, #FFB6C1, #DDA0DD, #87CEEB, #98FB98, #FFB6C1);
+            background-size: 400% 400%;
+            animation: rainbow 15s ease infinite;
+            font-family: 'VT323', monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .sparkles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+        }
+        
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 3s infinite;
+        }
+        
+        h1 {
+            font-family: 'Butterfly Kids', cursive;
+            font-size: 72px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #FF1493, #FFD700, #00FF00, #00FFFF, #FF1493);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbow 3s linear infinite;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 4px;
+        }
+        
+        .games-container {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 900px;
+        }
+        
+        .game-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 240, 245, 0.9));
+            border: 5px solid #FF69B4;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 
+                0 0 30px rgba(255, 105, 180, 0.5),
+                0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            animation: float 4s ease-in-out infinite;
+            width: 350px;
+        }
+        
+        .game-card:nth-child(2) {
+            animation-delay: 2s;
+        }
+        
+        .game-card:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 
+                0 0 50px rgba(255, 105, 180, 0.8),
+                0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .game-title {
+            font-size: 36px;
+            color: #FF1493;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(255, 192, 203, 0.5);
+        }
+        
+        .game-emoji {
+            font-size: 80px;
+            margin: 20px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .game-description {
+            color: #8B008B;
+            font-size: 20px;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+        
+        .play-button {
+            display: inline-block;
+            padding: 15px 40px;
+            font-size: 24px;
+            font-family: 'VT323', monospace;
+            background: linear-gradient(135deg, #FF69B4, #FF1493);
+            color: white;
+            text-decoration: none;
+            border: 3px solid #FFB6C1;
+            border-radius: 25px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4);
+        }
+        
+        .play-button:hover {
+            transform: scale(1.1) rotate(-2deg);
+            box-shadow: 
+                0 0 30px rgba(255, 105, 180, 0.8),
+                0 6px 20px rgba(255, 20, 147, 0.5);
+            background: linear-gradient(135deg, #FF1493, #FF69B4);
+        }
+        
+        .decorations {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 105, 180, 0.6);
+            font-size: 30px;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .star {
+            position: absolute;
+            color: rgba(255, 215, 0, 0.7);
+            font-size: 25px;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            color: white;
+            font-size: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 48px;
+            }
+            
+            .games-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .game-card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sparkles" id="sparkles"></div>
+    
+    <div class="decorations">
+        <span class="heart" style="top: 10%; left: 5%;">💖</span>
+        <span class="heart" style="top: 70%; right: 8%;">💕</span>
+        <span class="star" style="top: 15%; right: 10%;">⭐</span>
+        <span class="star" style="bottom: 20%; left: 7%;">✨</span>
+        <span class="heart" style="top: 50%; left: 3%;">💗</span>
+        <span class="star" style="top: 80%; left: 90%;">🌟</span>
+    </div>
+    
+    <h1>90s Arcade Paradise</h1>
+    <p class="subtitle">✨ CHOOSE YOUR GAME ✨</p>
+    
+    <div class="games-container">
+        <div class="game-card">
+            <h2 class="game-title">Princess Pac-Girl</h2>
+            <div class="game-emoji">👸</div>
+            <p class="game-description">
+                A super cute, girly twist on the classic!<br>
+                Collect hearts, dodge cute ghosts,<br>
+                and use magic wands for power!
+            </p>
+            <a href="princess-pacman.html" class="play-button">Play Now! 💖</a>
+        </div>
+        
+        <div class="game-card">
+            <h2 class="game-title">Space Invaders</h2>
+            <div class="game-emoji">🚀</div>
+            <p class="game-description">
+                Retro space shooter action!<br>
+                Defend Earth from alien invasion<br>
+                with classic arcade vibes!
+            </p>
+            <a href="space-invaders.html" class="play-button">Play Now! 🎮</a>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Made with 💕 and lots of sparkles ✨</p>
+    </div>
+    
+    <script>
+        // Generate sparkles
+        function createSparkles() {
+            const sparklesContainer = document.getElementById('sparkles');
+            for (let i = 0; i < 50; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                sparkle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                sparklesContainer.appendChild(sparkle);
+            }
+        }
+        createSparkles();
+        
+        // Add floating animation to decorations
+        document.querySelectorAll('.heart, .star').forEach((el, i) => {
+            el.style.animationDelay = `${i * 0.5}s`;
+        });
+    </script>
+</body>
+</html>
