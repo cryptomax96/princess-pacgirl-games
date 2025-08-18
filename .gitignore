@@ -41,3 +41,88 @@ build/
 *.tmp
 temp/
 tmp/
+
+# === HOME DIRECTORY SPECIFIC IGNORES ===
+
+# User config and cache directories
+.cache/
+.local/
+.conda/
+.docker/
+.electron-gyp/
+.dotnet/
+.vscode-server/
+.pki/
+.rustup/
+.crawl4ai/
+.config/
+.claude/
+.claude.json*
+.n8n/
+.streamlit/
+.npm/
+
+# Shell history and config
+.bash_history
+.zsh_history
+.lesshst
+.wget-hsts
+.python_history
+.bashrc
+.bash_logout
+.profile
+.zshrc
+.zprofile
+.gitconfig
+.sudo_as_admin_successful
+.motd_shown
+
+# SSH (sensitive!)
+.ssh/
+
+# ZSH/Oh-My-Zsh
+.oh-my-zsh/
+.zcompdump*
+*.zwc
+.shell.pre-oh-my-zsh
+
+# User directories
+Downloads/
+Desktop/
+archives/
+MyTempBackupDir/
+"New folder/"
+
+# Other Git repositories (they have their own .git)
+aurora-ai/
+deepsight/
+HunyuanVideo/
+n8n-workflows/
+n8n-media-army/
+mantis-gamepad-pro/
+zamia-mvp/
+Zamia-Demo/
+code/
+Hamza/
+
+# Installers and large files
+miniconda3/
+Miniconda3-latest-Linux-x86_64.sh
+*.mp4
+*.avi
+*.mkv
+
+# Scripts and configs in root
+*.sh
+*.yml
+*.md
+*.html
+
+# Node files in home root
+package.json
+package-lock.json
+
+# Backup files
+*.backup
+*.bak
+*backup*/
