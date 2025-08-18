@@ -126,3 +126,6 @@ package-lock.json
 *.backup
 *.bak
 *backup*/
+
+# Log directories
+logs/

@@ -1,0 +1,35 @@
+DeepSight Development Environment Setup Information
+==================================================
+
+Tailscale Network Configuration:
+- Device Name: desktop-fva9spq
+- Tailscale IP: 100.124.163.97
+- Network Status: Connected
+
+To access this machine remotely:
+1. Install Tailscale on your other device
+2. Connect to the same Tailscale network
+3. Use SSH: ssh mah@100.124.163.97
+
+SSH Server Status:
+- OpenSSH Server: Installed and Running
+- Listening on: Port 22 (0.0.0.0 and ::)
+- Service: Active (running)
+
+Remote SSH Access:
+- From Tailscale network: ssh mah@100.124.163.97
+- From local network: ssh mah@<local-ip>
+- Make sure to use your password or set up SSH keys for authentication
+
+GPU Configuration:
+- GPU: NVIDIA GeForce RTX 3080 Ti Laptop GPU
+- VRAM: 17.18 GB
+- CUDA Version: 12.9
+- PyTorch Version: 2.7.1+cu126
+
+Python Environment:
+- Python Version: 3.13.2
+- Virtual Environment: /home/mah/deepsight/venv
+
+Project Location: /home/mah/deepsight
+GitHub Repository: https://github.com/cryptomax96/DeepSight
